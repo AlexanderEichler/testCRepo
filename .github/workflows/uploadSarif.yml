@@ -24,7 +24,7 @@ jobs:
         - name: Checkout Goblint repository
           uses: actions/checkout@v2
           with:
-              repository: AlexanderEichler/analyzer.git
+              repository: AlexanderEichler/analyzer
         - name: Set up OCaml ${{ matrix.ocaml-compiler }}
           env:
             # otherwise setup-ocaml pins non-locked dependencies
