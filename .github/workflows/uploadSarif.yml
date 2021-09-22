@@ -21,7 +21,10 @@ jobs:
     steps:
         - name: Checkout code
           uses: actions/checkout@v2
-
+        - name: Checkout Goblint repository
+          uses: actions/checkout@v2
+          with:
+              repository: AlexanderEichler/analyzer.git
         - name: Set up OCaml ${{ matrix.ocaml-compiler }}
           env:
             # otherwise setup-ocaml pins non-locked dependencies
@@ -33,11 +36,7 @@ jobs:
 
         - name: Install dependencies
           run: opam install . --deps-only --locked
-        - name: Checkout
-          uses: actions/checkout@v2
-          with:
-            repository: AlexanderEichler/analyzer.git
-            token: ${{ secrets.my_pat }}
+
         - name: Build
           run: ./make.sh nat
         - name: Generate the Sarif output
