@@ -40,7 +40,8 @@ jobs:
 
         - name: Install dependencies
           run: opam install . --deps-only --locked
-
+        - name: Move Directory
+          run: cd /home/runner/work/goblint
         - name: Build
           run: ./make.sh nat
         - name: Generate the Sarif output
