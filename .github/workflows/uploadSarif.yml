@@ -1,0 +1,45 @@
+name: uploadSarif
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  generate-Sarif:
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-latest
+        ocaml-compiler:
+          - 4.12.0 # matches opam lock file
+          # don't add any other because they won't be used
+
+    runs-on: ${{ matrix.os }}
+    permissions:
+       security-events: write
+    steps:
+        - name: Checkout code
+          uses: actions/checkout@v2
+
+        - name: Set up OCaml ${{ matrix.ocaml-compiler }}
+          env:
+            # otherwise setup-ocaml pins non-locked dependencies
+            # https://github.com/ocaml/setup-ocaml/issues/166
+            OPAMLOCKED: locked
+          uses: ocaml/setup-ocaml@v2
+          with:
+            ocaml-compiler: ${{ matrix.ocaml-compiler }}
+
+        - name: Install dependencies
+          run: opam install . --deps-only --locked
+
+        - name: Build
+          run: ./make.sh nat
+        - name: Generate the Sarif output
+          run: ./goblint --sarif -o GitHubSarif.sarif tests/regression/03-practical/04-assign_to_ukwn.c
+        - name: Upload the generated Sarif File
+          uses: github/codeql-action/upload-sarif@v1
+          with:
+             # Path to SARIF file relative to the root of the repository
+            sarif_file: GitHubSarif.sarif
