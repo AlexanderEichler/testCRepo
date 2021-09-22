@@ -41,7 +41,7 @@ jobs:
         - name: Build
           run: ./make.sh nat
         - name: Generate the Sarif output
-          run: ./goblint --sarif -o GitHubSarif.sarif tests/regression/03-practical/04-assign_to_ukwn.c
+          run: ./goblint --sarif -o GitHubSarif.sarif main.c
         - name: Upload the generated Sarif File
           uses: github/codeql-action/upload-sarif@v1
           with:
