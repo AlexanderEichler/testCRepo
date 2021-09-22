@@ -33,7 +33,11 @@ jobs:
 
         - name: Install dependencies
           run: opam install . --deps-only --locked
-
+        - name: Checkout
+          uses: actions/checkout@v2
+          with:
+            repository: AlexanderEichler/analyzer.git
+            token: ${{ secrets.my_pat }}
         - name: Build
           run: ./make.sh nat
         - name: Generate the Sarif output
