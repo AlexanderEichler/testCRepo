@@ -37,23 +37,14 @@ jobs:
           uses: ocaml/setup-ocaml@v2
           with:
             ocaml-compiler: ${{ matrix.ocaml-compiler }}
-        - name: Ls
-          run: ls
-        - name: PWD
-          run: pwd
-        - name: cd
-          run: cd ..
         - name: PWD
           run: pwd
         - name: Install dependencies
           run: opam install . --deps-only --locked
-          working-directory: ./goblint
         - name: Build
           run: ./make.sh nat
-          working-directory: ./goblint
         - name: Generate the Sarif output
-          run: ./goblint --sarif -o GitHubSarif.sarif ../analysisTarget/main.c
-          #working-directory: ./goblint
+          run: ./goblint --sarif -o GitHubSarif.sarif /home/runner/work/testCRepo/testCRepo/main.c
         - name: Upload the generated Sarif File
           uses: github/codeql-action/upload-sarif@v1
           with:
