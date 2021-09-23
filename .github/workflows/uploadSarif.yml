@@ -39,6 +39,7 @@ jobs:
             ocaml-compiler: ${{ matrix.ocaml-compiler }}
         - name: Install dependencies
           run: opam install . --deps-only --locked
+          working-directory: ./goblint
         - name: Build
           run: ./make.sh nat
           working-directory: ./goblint
