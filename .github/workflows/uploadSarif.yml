@@ -37,12 +37,14 @@ jobs:
           uses: ocaml/setup-ocaml@v2
           with:
             ocaml-compiler: ${{ matrix.ocaml-compiler }}
+        - name: Ls
+          run: ls
         - name: Install dependencies
           run: opam install . --deps-only --locked
-          #working-directory: ./goblint
+          working-directory: ./goblint
         - name: Build
           run: ./make.sh nat
-          #working-directory: ./goblint
+          working-directory: ./goblint
         - name: Generate the Sarif output
           run: ./goblint --sarif -o GitHubSarif.sarif ../analysisTarget/main.c
           #working-directory: ./goblint
