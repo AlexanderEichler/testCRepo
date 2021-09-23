@@ -37,10 +37,12 @@ jobs:
           uses: ocaml/setup-ocaml@v2
           with:
             ocaml-compiler: ${{ matrix.ocaml-compiler }}
+            working-directory: ./goblint
         - name: PWD
           run: pwd
         - name: Install dependencies
           run: opam install . --deps-only --locked
+          working-directory: ./goblint
         - name: Build
           run: ./make.sh nat
           working-directory: ./goblint
