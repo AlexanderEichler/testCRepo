@@ -41,9 +41,9 @@ jobs:
           run: pwd
         - name: Install dependencies
           run: opam install . --deps-only --locked
-          working-directory: ./goblint
         - name: Build
           run: ./make.sh nat
+          working-directory: ./goblint
         - name: Generate the Sarif output
           run: ./goblint --sarif -o GitHubSarif.sarif /home/runner/work/testCRepo/testCRepo/main.c
           #working-directory: ./goblint
