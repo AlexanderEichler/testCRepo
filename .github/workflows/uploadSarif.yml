@@ -39,13 +39,13 @@ jobs:
             ocaml-compiler: ${{ matrix.ocaml-compiler }}
         - name: Install dependencies
           run: opam install . --deps-only --locked
-          working-directory: ./goblint
+          #working-directory: ./goblint
         - name: Build
           run: ./make.sh nat
-          working-directory: ./goblint
+          #working-directory: ./goblint
         - name: Generate the Sarif output
           run: ./goblint --sarif -o GitHubSarif.sarif ../analysisTarget/main.c
-          working-directory: ./goblint
+          #working-directory: ./goblint
         - name: Upload the generated Sarif File
           uses: github/codeql-action/upload-sarif@v1
           with:
