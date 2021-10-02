@@ -45,7 +45,6 @@ jobs:
         - name: Build
           run: |
             pwd
-            ls
             ./make.sh nat
         - name: Checkout code
           uses: actions/checkout@v2
@@ -55,7 +54,7 @@ jobs:
           run: |
               pwd
               ls
-              ./goblint --sarif -o GitHubSarif.sarif main.c
+              ./goblint --sarif -o GitHubSarif.sarif ./analysisTarget/main.c
           #working-directory: ./goblint
         - name: Upload the generated Sarif File
           uses: github/codeql-action/upload-sarif@v1
