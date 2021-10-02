@@ -27,6 +27,7 @@ jobs:
               path: goblint
         - name: PWD
           run: pwd
+          working-directory: ./goblint
         - name: Set up OCaml ${{ matrix.ocaml-compiler }}
           env:
             # otherwise setup-ocaml pins non-locked dependencies
@@ -38,6 +39,7 @@ jobs:
             working-directory: ./goblint
         - name: PWD
           run: pwd
+          working-directory: ./goblint
         - name: Install dependencies
           run: |
             pwd
