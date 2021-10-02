@@ -41,7 +41,11 @@ jobs:
         - name: PWD
           run: pwd
         - name: Install dependencies
-          run: opam install . --deps-only --locked
+          run: |
+            pwd
+            cd ..
+            cd goblint
+            opam install . --deps-only --locked
           working-directory: ./goblint
         - name: Build
           run: ./make.sh nat
