@@ -44,7 +44,10 @@ jobs:
             pwd
             opam install . --deps-only --locked
         - name: Build
-          run: ./make.sh nat
+          run: |
+            pwd
+            ls
+            ./make.sh nat
           working-directory: ./goblint
         - name: Checkout code
           uses: actions/checkout@v2
