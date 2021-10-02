@@ -19,16 +19,16 @@ jobs:
     permissions:
        security-events: write
     steps:
-        - name: Checkout code
-          uses: actions/checkout@v2
-          with:
-            path: analysisTarget
         - name: Checkout Goblint repository
           uses: actions/checkout@v2
           with:
               repository: AlexanderEichler/analyzer
               ref: SarifFormatV2
               path: goblint
+        - name: Checkout code
+          uses: actions/checkout@v2
+          with:
+             path: analysisTarget
         - name: Set up OCaml ${{ matrix.ocaml-compiler }}
           env:
             # otherwise setup-ocaml pins non-locked dependencies
