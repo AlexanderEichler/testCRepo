@@ -24,7 +24,6 @@ jobs:
           with:
               repository: AlexanderEichler/analyzer
               ref: SarifFormatV2
-              path: goblint
         - name: PWD
           run: pwd
 
