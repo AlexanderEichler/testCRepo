@@ -25,10 +25,6 @@ jobs:
               repository: AlexanderEichler/analyzer
               ref: SarifFormatV2
               path: goblint
-        - name: Checkout code
-          uses: actions/checkout@v2
-          with:
-             path: analysisTarget
         - name: PWD
           run: pwd
         - name: Set up OCaml ${{ matrix.ocaml-compiler }}
@@ -53,6 +49,10 @@ jobs:
         - name: Build
           run: ./make.sh nat
           working-directory: ./goblint
+         - name: Checkout code
+          uses: actions/checkout@v2
+          with:
+              path: analysisTarget
         - name: Generate the Sarif output
           run: ./goblint --sarif -o GitHubSarif.sarif /home/runner/work/testCRepo/testCRepo/main.c
           #working-directory: ./goblint
