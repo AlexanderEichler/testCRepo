@@ -34,6 +34,11 @@ jobs:
             # otherwise setup-ocaml pins non-locked dependencies
             # https://github.com/ocaml/setup-ocaml/issues/166
             OPAMLOCKED: locked
+          run: |
+            pwd
+            cd ..
+            cd goblint
+            pwd
           uses: ocaml/setup-ocaml@v2
           with:
             ocaml-compiler: ${{ matrix.ocaml-compiler }}
@@ -45,6 +50,7 @@ jobs:
             pwd
             cd ..
             cd goblint
+            pwd
             opam install . --deps-only --locked
           working-directory: ./goblint
         - name: Build
