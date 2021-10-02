@@ -48,7 +48,6 @@ jobs:
             pwd
             ls
             ./make.sh nat
-          working-directory: ./goblint
         - name: Checkout code
           uses: actions/checkout@v2
           with:
