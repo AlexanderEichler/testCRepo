@@ -29,16 +29,13 @@ jobs:
           uses: actions/checkout@v2
           with:
              path: analysisTarget
+        - name: PWD
+          run: pwd
         - name: Set up OCaml ${{ matrix.ocaml-compiler }}
           env:
             # otherwise setup-ocaml pins non-locked dependencies
             # https://github.com/ocaml/setup-ocaml/issues/166
             OPAMLOCKED: locked
-          run: |
-            pwd
-            cd ..
-            cd goblint
-            pwd
           uses: ocaml/setup-ocaml@v2
           with:
             ocaml-compiler: ${{ matrix.ocaml-compiler }}
