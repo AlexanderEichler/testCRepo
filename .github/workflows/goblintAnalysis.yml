@@ -8,7 +8,7 @@ jobs:
   generate-Sarif:
     env:
       # ./analysisTarget/main.c needs to be replaced with ./analysisTarget/PATH_TO_MAIN
-      MAIN_NAME: ./analysisTarget/main.c
+      MAIN_NAME: './analysisTarget/main.c'
     strategy:
       fail-fast: false
       matrix:
