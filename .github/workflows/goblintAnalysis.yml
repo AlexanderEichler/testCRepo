@@ -6,6 +6,9 @@ on:
 
 jobs:
   generate-Sarif:
+    env:
+      # ./analysisTarget/main.c needs to be replaced with ./analysisTarget/PATH_TO_MAIN
+      MAIN_NAME: ./analysisTarget/main.c
     strategy:
       fail-fast: false
       matrix:
@@ -50,12 +53,11 @@ jobs:
           uses: actions/checkout@v2
           with:
               path: analysisTarget
-         # ./analysisTarget/main.c needs to be replaced with ./analysisTarget/PATH_TO_MAIN
         - name: Generate the Sarif output
           run: |
               pwd
               ls
-              ./goblint --sarif -o GitHubSarif.sarif ./analysisTarget/main.c
+              ./goblint --sarif -o GitHubSarif.sarif MAIN_NAME
         - name: Upload the generated Sarif File
           uses: github/codeql-action/upload-sarif@v1
           with:
