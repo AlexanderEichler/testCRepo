@@ -57,7 +57,7 @@ jobs:
           run: |
               pwd
               ls
-              ./goblint --sarif -o GitHubSarif.sarif MAIN_NAME
+              ./goblint --sarif -o GitHubSarif.sarif  ${{env.MAIN_NAME}}
         - name: Upload the generated Sarif File
           uses: github/codeql-action/upload-sarif@v1
           with:
