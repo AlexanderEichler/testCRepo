@@ -27,7 +27,7 @@ jobs:
           with:
               repository: AlexanderEichler/analyzer
               #this path needs to be changed to the main branch
-              ref: SarifFormatV2
+              ref: integrationSarif
         - name: PWD
           run: pwd
 
