@@ -1,4 +1,4 @@
-name: uploadSarif
+name: goblintAnalysis
 
 on:
   push:
