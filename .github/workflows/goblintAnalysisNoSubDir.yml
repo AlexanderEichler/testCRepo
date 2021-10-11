@@ -48,8 +48,7 @@ jobs:
             pwd
             ./make.sh nat
             ./goblint
-          with:
-              path: analyzer
+          working-directory: analyzer
         - name: Checkout code
           uses: actions/checkout@v2
         - name: Generate the Sarif output
