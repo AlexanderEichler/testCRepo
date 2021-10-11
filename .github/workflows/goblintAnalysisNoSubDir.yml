@@ -43,8 +43,12 @@ jobs:
           path: analyzer
       - name: Install dependencies
         run: opam install . --deps-only --locked
+        with:
+          path: analyzer
       - name: Build
         run: ./make.sh nat
+        with:
+          path: analyzer
       - name: Generate the Sarif output
         run: |
           pwd
