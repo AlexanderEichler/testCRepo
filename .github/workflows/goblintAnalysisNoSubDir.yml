@@ -43,7 +43,10 @@ jobs:
             ls
             opam install . --deps-only --locked
         - name: Build
-          run: ./make.sh nat
+          run: |
+            pwd
+            ./make.sh nat
+            ./goblint
         - name: Checkout code
           uses: actions/checkout@v2
         - name: Generate the Sarif output
