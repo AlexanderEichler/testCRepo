@@ -45,7 +45,6 @@ jobs:
             pwd
             ls
             opam install . --deps-only --locked
-            eval $(opam env)
          with:
              path: analyzer
         - name: Build
