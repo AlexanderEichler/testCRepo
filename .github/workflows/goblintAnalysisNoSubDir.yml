@@ -46,8 +46,7 @@ jobs:
         working-directory: analyzer
       - name: Build
         run: ./make.sh nat
-        with:
-          path: analyzer
+        working-directory: analyzer
       - name: Generate the Sarif output
         run: |
           pwd
