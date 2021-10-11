@@ -9,7 +9,7 @@ jobs:
     env:
       # ./analysisTarget/main.c needs to be replaced with ./analysisTarget/PATH_TO_MAIN
       #the prefix  ./analysisTarget/ is removed in Goblint, so the location shows correctly in Github
-      MAIN_NAME: './analysisTarget/05-inf_loop.c'
+      MAIN_NAME: './testCRepo/05-inf_loop.c'
     strategy:
       fail-fast: false
       matrix:
@@ -29,9 +29,6 @@ jobs:
               repository: AlexanderEichler/analyzer
               #this path needs to be changed to the main branch
               ref: integrationSarif
-        - name: PWD
-          run: pwd
-
         - name: Set up OCaml ${{ matrix.ocaml-compiler }}
           env:
             # otherwise setup-ocaml pins non-locked dependencies
@@ -49,10 +46,7 @@ jobs:
           with:
               path:  testCRepo
         - name: Generate the Sarif output
-          run: |
-              pwd
-              ls
-              ./goblint --sarif -o GitHubSarif.sarif  ${{env.MAIN_NAME}} -R ./
+          run: ./goblint --sarif -o GitHubSarif.sarif  ${{env.MAIN_NAME}} -R ./
         - name: Upload the generated Sarif File
           uses: github/codeql-action/upload-sarif@v1
           with:
