@@ -46,7 +46,7 @@ jobs:
           with:
               path:  testCRepo
         - name: Generate the Sarif output
-          run: ./goblint --sarif -o GitHubSarif.sarif  ${{env.MAIN_NAME}} -R ./
+          run: ./goblint --sarif -o GitHubSarif.sarif  ${{env.MAIN_NAME}} -R ./testCRepo/
         - name: Upload the generated Sarif File
           uses: github/codeql-action/upload-sarif@v1
           with:
