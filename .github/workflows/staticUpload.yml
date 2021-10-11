@@ -9,6 +9,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+        - name: Checkout code
+          uses: actions/checkout@v2
         - name: Upload the generated Sarif File
           uses: github/codeql-action/upload-sarif@v1
           with:
