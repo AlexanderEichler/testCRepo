@@ -29,6 +29,7 @@ jobs:
               repository: AlexanderEichler/analyzer
               #this path needs to be changed to the main branch
               ref: integrationSarif
+              path: analyzer
         - name: Set up OCaml ${{ matrix.ocaml-compiler }}
           env:
             # otherwise setup-ocaml pins non-locked dependencies
@@ -53,7 +54,7 @@ jobs:
           run:  |
             pwd
             ls
-            ./goblint --sarif -o GitHubSarif.sarif  ${{env.MAIN_NAME}}
+            ./analyzer/goblint --sarif -o GitHubSarif.sarif  ${{env.MAIN_NAME}}
         - name: Upload the generated Sarif File
           uses: github/codeql-action/upload-sarif@v1
           with:
