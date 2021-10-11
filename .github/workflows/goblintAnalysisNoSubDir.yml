@@ -1,4 +1,4 @@
-name: goblintAnalysisNoSubDir
+name: goblintAnalysis
 
 on:
   push:
@@ -21,48 +21,34 @@ jobs:
 
     runs-on: ${{ matrix.os }}
     permissions:
-       security-events: write
+      security-events: write
     steps:
-
-       - name: Checkout Goblint repository
-         uses: actions/checkout@v2
-         with:
-           path: analyzer
-           repository: AlexanderEichler/analyzer
-           #this path needs to be changed to the main branch
-           ref: integrationSarif
-       - name: Set up OCaml ${{ matrix.ocaml-compiler }}
-         env:
-             # otherwise setup-ocaml pins non-locked dependencies
-             # https://github.com/ocaml/setup-ocaml/issues/166
-             OPAMLOCKED: locked
-         uses: ocaml/setup-ocaml@v2
-         with:
-             ocaml-compiler: ${{ matrix.ocaml-compiler }}
-             path: analyzer
-       - name: Install dependencies
-         working-directory: analyzer
-         run: |
-            eval $(opam env)
-            pwd
-            ls
-            opam install . --deps-only --locked
-           eval $(opam env)
-      - name: Build
-        working-directory: analyzer
-        run: |
-           pwd
-           ./make.sh nat
-           ./goblint
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+          path: testCRepo
+      - name: Checkout Goblint repository
+        uses: actions/checkout@v2
+        with:
+          repository: AlexanderEichler/analyzer
+          #this path needs to be changed to the main branch
+          ref: integrationSarif
+      - name: Set up OCaml ${{ matrix.ocaml-compiler }}
+        env:
+          # otherwise setup-ocaml pins non-locked dependencies
+          # https://github.com/ocaml/setup-ocaml/issues/166
+          OPAMLOCKED: locked
+        uses: ocaml/setup-ocaml@v2
+        with:
+          ocaml-compiler: ${{ matrix.ocaml-compiler }}
+      - name: Install dependencies
+        run: opam install . --deps-only --locked
+      - name: Build
+        run: ./make.sh nat
       - name: Generate the Sarif output
-        run: |
-           pwd
-           ls
-           ./analyzer/goblint --sarif -o GitHubSarif.sarif  ${{env.MAIN_NAME}}
-     - name: Upload the generated Sarif File
-       uses: github/codeql-action/upload-sarif@v1
-       with:
+        run: ./goblint --sarif -o GitHubSarif.sarif  ${{env.MAIN_NAME}} -R ./testCRepo/
+      - name: Upload the generated Sarif File
+        uses: github/codeql-action/upload-sarif@v1
+        with:
           # Path to SARIF file relative to the root of the repository
           sarif_file: GitHubSarif.sarif
