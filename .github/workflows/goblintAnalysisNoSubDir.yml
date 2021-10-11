@@ -42,6 +42,7 @@ jobs:
         - name: Install dependencies
           working-directory: analyzer
           run: |
+            eval $(opam env)
             pwd
             ls
             opam install . --deps-only --locked
