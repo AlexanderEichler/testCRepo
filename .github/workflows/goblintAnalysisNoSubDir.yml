@@ -28,10 +28,11 @@ jobs:
        - name: Checkout Goblint repository
          uses: actions/checkout@v2
          with:
+           path: analyzer
            repository: AlexanderEichler/analyzer
            #this path needs to be changed to the main branch
            ref: integrationSarif
-           path: analyzer
+
         - name: Set up OCaml ${{ matrix.ocaml-compiler }}
           env:
             # otherwise setup-ocaml pins non-locked dependencies
