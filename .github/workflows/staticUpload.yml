@@ -5,23 +5,9 @@ on:
   pull_request:
 
 jobs:
-  generate-Sarif:
-    env:
-      # ./analysisTarget/main.c needs to be replaced with ./analysisTarget/PATH_TO_MAIN
-      #the prefix  ./analysisTarget/ is removed in Goblint, so the location shows correctly in Github
-      MAIN_NAME: './testCRepo/05-inf_loop.c'
-    strategy:
-      fail-fast: false
-      matrix:
-        os:
-          - ubuntu-latest
-        ocaml-compiler:
-          - 4.12.0 # matches opam lock file
-          # don't add any other because they won't be used
+  staticUpload:
+    runs-on: ubuntu-latest
 
-    runs-on: ${{ matrix.os }}
-    permissions:
-       security-events: write
     steps:
         - name: Upload the generated Sarif File
           uses: github/codeql-action/upload-sarif@v1
