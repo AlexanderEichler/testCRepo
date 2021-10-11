@@ -22,8 +22,10 @@ jobs:
     runs-on: ${{ matrix.os }}
     permissions:
        security-events: write
-    steps:
-        - name: Checkout Goblint repository
+    steps
+       - name: Checkout code
+          uses: actions/checkout@v2
+       - name: Checkout Goblint repository
           uses: actions/checkout@v2
           with:
               repository: AlexanderEichler/analyzer
@@ -53,8 +55,7 @@ jobs:
             pwd
             ./make.sh nat
             ./goblint
-        - name: Checkout code
-          uses: actions/checkout@v2
+
         - name: Generate the Sarif output
           run:  |
             pwd
