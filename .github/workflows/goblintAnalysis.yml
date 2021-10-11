@@ -47,12 +47,12 @@ jobs:
         - name: Checkout code
           uses: actions/checkout@v2
           with:
-              path: analysisTarget
+              path:  testCRepo
         - name: Generate the Sarif output
           run: |
               pwd
               ls
-              ./goblint --sarif -o GitHubSarif.sarif  ${{env.MAIN_NAME}} -R ./analysisTarget/
+              ./goblint --sarif -o GitHubSarif.sarif  ${{env.MAIN_NAME}} -R ./
         - name: Upload the generated Sarif File
           uses: github/codeql-action/upload-sarif@v1
           with:
