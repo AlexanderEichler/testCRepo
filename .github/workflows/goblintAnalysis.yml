@@ -40,17 +40,10 @@ jobs:
           uses: ocaml/setup-ocaml@v2
           with:
             ocaml-compiler: ${{ matrix.ocaml-compiler }}
-        - name: PWD
-          run: pwd
-
         - name: Install dependencies
-          run: |
-            pwd
-            opam install . --deps-only --locked
+          run: opam install . --deps-only --locked
         - name: Build
-          run: |
-            pwd
-            ./make.sh nat
+          run: ./make.sh nat
         - name: Checkout code
           uses: actions/checkout@v2
           with:
