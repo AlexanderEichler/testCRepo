@@ -1,4 +1,4 @@
-name: goblintAnalysis
+name: goblintAnalysisTests
 
 on:
   push:
