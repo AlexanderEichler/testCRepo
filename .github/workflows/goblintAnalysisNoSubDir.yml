@@ -32,7 +32,6 @@ jobs:
            repository: AlexanderEichler/analyzer
            #this path needs to be changed to the main branch
            ref: integrationSarif
-
         - name: Set up OCaml ${{ matrix.ocaml-compiler }}
           env:
             # otherwise setup-ocaml pins non-locked dependencies
@@ -56,7 +55,6 @@ jobs:
             pwd
             ./make.sh nat
             ./goblint
-
         - name: Generate the Sarif output
           run:  |
             pwd
