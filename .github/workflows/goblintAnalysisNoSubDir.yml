@@ -41,6 +41,9 @@ jobs:
         with:
           ocaml-compiler: ${{ matrix.ocaml-compiler }}
           path: analyzer
+      - name: Install conf-mpfr
+        run : opam install conf-pkg-config
+        working-directory: analyzer
       - name: Install dependencies
         run: |
           pwd
