@@ -75,8 +75,9 @@ jobs:
     runs-on: ${{ matrix.os }}
     permissions:
       security-events: write
-  - name: Generate the Sarif output
-      run: |
+    steps:
+      - name: Generate the Sarif output
+        run: |
         pwd
         ls
         ./goblint --sarif -o GitHubSarif.sarif  ${{env.MAIN_NAME}} -R ./testCRepo/
