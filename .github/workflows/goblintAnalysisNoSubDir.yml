@@ -5,7 +5,7 @@ on:
   pull_request:
 
 jobs:
-  generate-Sarif:
+  installOcaml:
     env:
       # ./analysisTarget/main.c needs to be replaced with ./analysisTarget/PATH_TO_MAIN
       #the prefix  ./analysisTarget/ is removed in Goblint, so the location shows correctly in Github
@@ -23,8 +23,6 @@ jobs:
     permissions:
       security-events: write
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
       - name: Checkout Goblint repository
         uses: actions/checkout@v2
         with:
@@ -56,11 +54,32 @@ jobs:
       - name: Build
         run: ./make.sh nat
         working-directory: analyzer
-      - name: Generate the Sarif output
-        run: |
-          pwd
-          ls
-          ./goblint --sarif -o GitHubSarif.sarif  ${{env.MAIN_NAME}} -R ./testCRepo/
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+  generate-Sarif:
+    needs: installOcaml
+    env:
+      # ./analysisTarget/main.c needs to be replaced with ./analysisTarget/PATH_TO_MAIN
+      #the prefix  ./analysisTarget/ is removed in Goblint, so the location shows correctly in Github
+      MAIN_NAME: '05-inf_loop.c'
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-latest
+        ocaml-compiler:
+          - 4.12.0 # matches opam lock file
+          # don't add any other because they won't be used
+
+    runs-on: ${{ matrix.os }}
+    permissions:
+      security-events: write
+  - name: Generate the Sarif output
+      run: |
+        pwd
+        ls
+        ./goblint --sarif -o GitHubSarif.sarif  ${{env.MAIN_NAME}} -R ./testCRepo/
       - name: Upload the generated Sarif File
         uses: github/codeql-action/upload-sarif@v1
         with:
