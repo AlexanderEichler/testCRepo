@@ -9,7 +9,7 @@ jobs:
     env:
       # ./analysisTarget/main.c needs to be replaced with ./analysisTarget/PATH_TO_MAIN
       #the prefix  ./analysisTarget/ is removed in Goblint, so the location shows correctly in Github
-      MAIN_NAME: './testCRepo/05-inf_loop.c'
+      MAIN_NAME: './testCRepo/main.c ./testCRepo/dumb.c'
     strategy:
       fail-fast: false
       matrix:
@@ -46,9 +46,10 @@ jobs:
           with:
               path:  testCRepo
         - name: Generate the Sarif output
+          #cilly --gcc=/usr/bin/gcc-6 --merge main.c dumb.c -o merged --keepmerged
+          # ./goblint --sarif -o GitHubSarif.sarif  ${{env.MAIN_NAME}} -R ./testCRepo/
           run: |
-            cilly --gcc=/usr/bin/gcc-6 --merge main.c dumb.c -o merged --keepmerged
-            ./goblint --sarif -o GitHubSarif.sarif  ${{env.MAIN_NAME}} -R ./testCRepo/
+            ./goblint --sarif -o ${{env.MAIN_NAME}}
         - name: Upload the generated Sarif File
           uses: github/codeql-action/upload-sarif@v1
           with:
