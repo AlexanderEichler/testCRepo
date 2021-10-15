@@ -49,7 +49,7 @@ jobs:
           #cilly --gcc=/usr/bin/gcc-6 --merge main.c dumb.c -o merged --keepmerged
           # ./goblint --sarif -o GitHubSarif.sarif  ${{env.MAIN_NAME}} -R ./testCRepo/
           run: |
-            ./goblint --sarif -o ${{env.MAIN_NAME}}
+            ./goblint --sarif -o GitHubSarif.sarif ${{env.MAIN_NAME}}
         - name: Upload the generated Sarif File
           uses: github/codeql-action/upload-sarif@v1
           with:
