@@ -31,10 +31,10 @@ jobs:
           ref: integrationSarif
           path: analyzer
       - name: Set up OCaml ${{ matrix.ocaml-compiler }}
-        env:
+        #env:
           # otherwise setup-ocaml pins non-locked dependencies
           # https://github.com/ocaml/setup-ocaml/issues/166
-          OPAMLOCKED: locked
+          #OPAMLOCKED: locked
         uses: ocaml/setup-ocaml@v2
         with:
           ocaml-compiler: ${{ matrix.ocaml-compiler }}
