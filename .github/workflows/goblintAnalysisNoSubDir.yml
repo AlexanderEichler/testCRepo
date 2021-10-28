@@ -38,7 +38,7 @@ jobs:
         uses: ocaml/setup-ocaml@v2
         with:
           ocaml-compiler: ${{ matrix.ocaml-compiler }}
-          path: analyzer
+          path: opam-local-packages
      # - name: Install conf-mpfr
     #    run : |
      #     opam install conf-pkg-config
