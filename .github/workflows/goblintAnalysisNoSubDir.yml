@@ -7,7 +7,7 @@ on:
 jobs:
   installOcaml:
     env:
-      # ./analysisTarget/main.c needs to be replaced with ./analysisTarget/PATH_TO_MAIN
+      # ./analysisTarget/main.c  needs to be replaced with ./analysisTarget/PATH_TO_MAIN
       #the prefix  ./analysisTarget/ is removed in Goblint, so the location shows correctly in Github
       MAIN_NAME: '05-inf_loop.c'
     strategy:
